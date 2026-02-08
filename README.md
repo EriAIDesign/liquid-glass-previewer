@@ -19,8 +19,6 @@ A web tool to preview app icons with the real macOS/iOS **Liquid Glass** effect.
   No uploads, no tracking — everything stays on your device.
 - **Bilingual**  
   Full support for English and Japanese.
-- **Responsive**  
-  Works seamlessly on desktop, tablet, and mobile.
 
 
 ---
