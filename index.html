@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Liquid Glass Previewer - MIT License | (c) 2026 Eri Tools -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liquid Glass Previewer • Eri Tools</title>
+    <meta name="description" content="Preview how your app icons look with macOS/iOS Liquid Glass effect. Real-time simulation with different backgrounds.">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="favicon.png">
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Liquid Glass Previewer • Eri Tools">
+    <meta property="og:description" content="Preview how your app icons look with macOS/iOS Liquid Glass effect. Real-time simulation with different backgrounds.">
+    <meta property="og:image" content="https://eriaidesign.github.io/liquid-glass-previewer/og-image.jpg">
+    <meta property="og:url" content="https://eriaidesign.github.io/liquid-glass-previewer/">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Liquid Glass Previewer • Eri Tools">
+    <meta name="twitter:description" content="Preview how your app icons look with macOS/iOS Liquid Glass effect. Real-time simulation with different backgrounds.">
+    <meta name="twitter:image" content="https://eriaidesign.github.io/liquid-glass-previewer/og-image.jpg">
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#0066cc">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Language Toggle -->
+    <div class="lang-toggle">
+        <button id="lang-en" class="lang-btn active" data-lang="en">EN</button>
+        <button id="lang-ja" class="lang-btn" data-lang="ja">日本語</button>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="brand">
+                <svg class="logo" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="4" y="4" width="24" height="24" rx="6" stroke="currentColor" stroke-width="2"/>
+                    <path d="M12 12h8M12 16h8M12 20h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <div class="brand-text">
+                    <h1>Liquid Glass Previewer</h1>
+                    <p class="brand-by">by <span class="eri-tools">Eri Tools</span></p>
+                </div>
+            </div>
+            <p class="tagline" data-i18n="tagline">Preview your app icons with real macOS/iOS Liquid Glass effect</p>
+            <div class="header-support">
+                <a href="https://ko-fi.com/eritools" target="_blank" rel="noopener" class="kofi-btn kofi-btn--top">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M23.881 8.948c-.773-4.085-4.859-4.593-4.859-4.593H.723c-.604 0-.679.798-.679.798s-.082 7.324-.022 11.822c.164 2.424 2.586 2.672 2.586 2.672s8.267-.023 11.966-.049c2.438-.426 2.683-2.566 2.658-3.734 4.352.24 7.422-2.831 6.649-6.916zm-11.062 3.511c-1.246 1.453-4.011 3.976-4.011 3.976s-.121.119-.31.023c-.076-.057-.108-.09-.108-.09-.443-.441-3.368-3.049-4.034-3.954-.709-.965-1.041-2.7-.091-3.71.951-1.01 3.005-1.086 4.363.407 0 0 1.565-1.782 3.468-.963 1.904.82 1.832 3.011.723 4.311zm6.173.478c-.928.116-1.682.028-1.682.028V7.284h1.77s1.971.551 1.971 2.638c0 1.913-.985 2.667-2.059 3.015z"/>
+                    </svg>
+                    <span data-i18n="support-btn">Support this tool</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Upload Section -->
+            <section class="upload-section">
+                <div class="upload-zone" id="uploadZone">
+                    <svg class="upload-icon" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M24 36V16M24 16L16 24M24 16L32 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 40h24" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <h2 data-i18n="upload-title">Drop your icon here</h2>
+                    <p data-i18n="upload-subtitle">PNG or SVG • 512×512px recommended</p>
+                    <input type="file" id="fileInput" accept="image/png,image/svg+xml,image/jpeg" hidden>
+                    <button class="btn-primary" id="browseBtn" data-i18n="browse-btn">Browse Files</button>
+                </div>
+            </section>
+
+            <!-- Controls Section -->
+            <section class="controls-section" id="controlsSection" style="display: none;">
+                <div class="controls-row">
+                    <h3 data-i18n="bg-title">Background Color</h3>
+                    <div class="color-presets">
+                        <button class="color-btn active" data-color="#99CFFF" title="Sky Blue" aria-label="Sky blue background">
+                            <span class="color-swatch" style="background: #99CFFF;"></span>
+                        </button>
+                        <button class="color-btn" data-color="#000000" title="Black" aria-label="Black background">
+                            <span class="color-swatch" style="background: #000000;"></span>
+                        </button>
+                        <button class="color-btn" data-color="#E9E9E9" title="Gray" aria-label="Gray background">
+                            <span class="color-swatch" style="background: #E9E9E9;"></span>
+                        </button>
+                        <button class="color-btn" data-color="#EDEDF5" title="Light Gray" aria-label="Light gray background">
+                            <span class="color-swatch" style="background: #EDEDF5;"></span>
+                        </button>
+                        <button class="color-btn" data-color="#FFFFFF" title="White" aria-label="White background">
+                            <span class="color-swatch" style="background: #FFFFFF;"></span>
+                        </button>
+                        <button class="color-btn color-custom" id="customColorBtn" title="Custom Color" aria-label="Custom color">
+                            <span class="color-swatch custom-swatch">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M8 2v12M2 8h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            </span>
+                            <input type="color" id="colorPicker" value="#99CFFF" aria-label="Pick custom background color">
+                        </button>
+                    </div>
+                </div>
+                <div class="controls-row">
+                    <h3>Icon Base Color</h3>
+                    <div class="color-presets">
+                        <button class="color-btn base-btn active" data-color="#0088FF" title="Blue" aria-label="Blue base">
+                            <span class="color-swatch" style="background: #0088FF;"></span>
+                        </button>
+                        <button class="color-btn base-btn" data-color="#FF383C" title="Red" aria-label="Red base">
+                            <span class="color-swatch" style="background: #FF383C;"></span>
+                        </button>
+                        <button class="color-btn base-btn" data-color="#FF8D28" title="Orange" aria-label="Orange base">
+                            <span class="color-swatch" style="background: #FF8D28;"></span>
+                        </button>
+                        <button class="color-btn base-btn" data-color="#FFCC00" title="Yellow" aria-label="Yellow base">
+                            <span class="color-swatch" style="background: #FFCC00;"></span>
+                        </button>
+                        <button class="color-btn base-btn" data-color="#34C759" title="Green" aria-label="Green base">
+                            <span class="color-swatch" style="background: #34C759;"></span>
+                        </button>
+                        <button class="color-btn color-custom base-custom" id="baseColorBtn" title="Custom Base Color" aria-label="Custom base color">
+                            <span class="color-swatch base-swatch">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M8 2v12M2 8h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            </span>
+                            <input type="color" id="baseColorPicker" value="#0088FF" aria-label="Pick icon base color">
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Preview Section -->
+            <section class="preview-section" id="previewSection" style="display: none;">
+                <div class="preview-grid">
+                    <!-- Normal -->
+                    <div class="preview-card">
+                        <div class="preview-header">
+                            <h4 data-i18n="mode-normal">Normal</h4>
+                        </div>
+                        <div class="preview-canvas" id="canvasNormal">
+                            <canvas id="normalCanvas" width="512" height="512"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Dark Mode -->
+                    <div class="preview-card">
+                        <div class="preview-header">
+                            <h4 data-i18n="mode-dark">Dark Mode</h4>
+                        </div>
+                        <div class="preview-canvas" id="canvasDark">
+                            <canvas id="darkCanvas" width="512" height="512"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Liquid Glass -->
+                    <div class="preview-card">
+                        <div class="preview-header">
+                            <h4 data-i18n="mode-liquid">Liquid Glass</h4>
+                        </div>
+                        <div class="preview-canvas" id="canvasLiquid">
+                            <canvas id="liquidCanvas" width="512" height="512"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Info Section -->
+            <section class="info-section">
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3 data-i18n="info-title-1">What is Liquid Glass?</h3>
+                        <p data-i18n="info-text-1">Liquid Glass is the semi-transparent, blurred effect Apple uses in macOS Dock and iOS customization mode. This tool simulates the real appearance with accurate blur, vibrancy, and light reflection.</p>
+                    </div>
+                    <div class="info-card">
+                        <h3 data-i18n="info-title-2">How to use</h3>
+                        <p data-i18n="info-text-2">Upload your app icon (512×512px recommended), then switch background colors to see how your icon adapts. The Liquid Glass preview shows the effect as it appears on real devices.</p>
+                    </div>
+                    <div class="info-card">
+                        <h3 data-i18n="info-title-3">Privacy & Safety</h3>
+                        <p data-i18n="info-text-3">Your images are processed entirely in your browser. Nothing is uploaded to any server. Your files never leave your device.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <p>Made by <a href="https://ko-fi.com/eritools" target="_blank" rel="noopener" class="eri-tools-link">Eri Tools</a></p>
+                </div>
+                <div class="footer-license">
+                    <span data-i18n="footer-license">License: MIT (Open Source)</span>
+                </div>
+                <div class="footer-source">
+                    <a href="https://github.com/EriAIDesign/liquid-glass-previewer" target="_blank" rel="noopener" data-i18n="footer-source">Source: GitHub</a>
+                </div>
+            </div>
+            <div class="footer-meta">
+                <span class="footer-note" data-i18n="footer-note">Liquid Glass is not an Apple trademark or product name and refers to visual styles seen in macOS/iOS UI. This tool is an unofficial third-party project.</span>
+            </div>
+            <p class="footer-copyright">© 2026 Eri Tools</p>
+        </div>
+    </footer>
+
+    <script src="i18n.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
